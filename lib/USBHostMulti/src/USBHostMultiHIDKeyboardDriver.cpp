@@ -39,12 +39,3 @@ bool USBHostMultiHIDKeyboardDriver::IsInterfaceSupported(uint8_t uClass, uint8_t
 }
 
 
-void USBHostMultiHIDKeyboardDriver::Unstick(void)
-{
-  USBHostMultiDevice *pDevice = m_pHostMulti->GetDevice(2);
-  if(pDevice)
-  {
-    uint8_t buffer[16];
-    pDevice->GetUSBData(1, buffer, 8);
-  }
-}

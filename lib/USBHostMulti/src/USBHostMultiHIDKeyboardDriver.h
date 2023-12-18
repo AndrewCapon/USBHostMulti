@@ -22,9 +22,6 @@ public:
   virtual bool                                  IsEndpointSupported(ENDPOINT_TYPE endpointType) override;
   virtual bool                                  IsInterfaceSupported(uint8_t uClass, uint8_t uSubclass, uint8_t uProtocol) override;
 
-
-  void Unstick(void);
-
 private:
   USBHostMulti                      *m_pHostMulti = nullptr;
 };

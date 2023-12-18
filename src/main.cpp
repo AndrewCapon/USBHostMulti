@@ -32,7 +32,9 @@ USBHostMulti                  *pMultiHost = nullptr;
   USBHostMultiMidiDriver        *pMultiMidiDriver = nullptr;
   USBHostMultiHIDKeyboardDriver *pMultiHIDKeyboardDriver = nullptr;
   USBHostMultiMsdDriver         *pMultiMsdDriver = nullptr;
-  MidiTest                      *pMidiTest = nullptr;
+  #if USE_MIDI_TEST
+    MidiTest                      *pMidiTest = nullptr;
+  #endif
 #endif
 
 void setup() 
@@ -59,8 +61,11 @@ void setup()
   // Create Msd driver and attach to host (bulk)
   pMultiMsdDriver = new USBHostMultiMsdDriver(pMultiHost);
 
+#if USE_MIDI_TEST
   // Create simple test class for testing midi
   pMidiTest = new MidiTest(pMultiMidiDriver);
+#endif
+
 #endif
 }
 

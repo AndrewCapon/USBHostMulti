@@ -182,14 +182,14 @@ void USBHostMultiMidiDriver::ParseConfigEntry(uint8_t uType, uint8_t *pData, uin
 ```
 
 ### DeviceConnected(uint8_t uDeviceIndex)
-A Device has been dconnected (only devices supported by this driver)
+A Device has been connected (only devices supported by this driver)
 
 ### DeviceDisconnected(uint8_t uDeviceIndex)
-A device has been connected (only devices supported by this driver)
+A device has been disconnected (only devices supported by this driver)
 
 ### bool HandleTransfersAutomatically(void)
 Return false if you do not want transfers handled automatically.
-More on this later...
+For example a mass media driver.
 
 ## USBHostMulti
 This is the top level class, this is the `Arduino_USBHostMbed5` driver that is used by the underlying mbed code.  

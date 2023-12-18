@@ -108,3 +108,66 @@ void USBHostMultiDumperDriver::RecievedUSBData(uint8_t uDeviceIndex,  uint8_t uI
 ```
 
 ### void ParseConfigEntry(uint8_t uType, uint8_t *pData, uint32_t uLength, uint8_t *pRawData)
+This is called for every entry in the device configuration.
+`uType' the type of the config entry.
+`pData` the data for the config entry (type has been removed)
+`uLength` the lengh of the data in `pData`
+`pRawData` the raw data.
+
+For example in the midi driver we can use this to find the ports and jacks:
+```
+void USBHostMultiMidiDriver::ParseConfigEntry(uint8_t uType, uint8_t *pData, uint32_t uLength, uint8_t *pRawData)
+{
+  if(uType == 0x24) // class-specific interface descriptor
+  {
+    // Midi jack
+    uint8_t uSubType = *pData++;
+    switch (uSubType)
+    {
+      case 0x01: // Header
+        USB_DBG("Midi Header V%u.%u", pData[1], pData[0]);
+      break;
+
+      case 0x02: // Midi in jack
+      {
+        uint8_t uJackType = pData[0];
+        uint8_t uJackId   = pData[1];
+
+        USB_DBG("%s Midi in jack [%u]", uJackType == 1 ? "Embedded" : "External", uJackId);
+
+        if(uJackType == 1)
+          m_uPortCount++;
+      }
+      break;
+
+      case 0x03: // Midi out jack
+      {
+        uint8_t uJackType = pData[0];
+        uint8_t uJackId   = pData[1];
+
+        USB_DBG("%s Midi out jack [%u]", uJackType== 1 ? "Embedded" : "External", uJackId);
+        uint8_t uNumPins = pData[2];
+        for(uint_fast8_t uPin = 0; uPin < uNumPins; uPin++)
+        {
+          uint8_t *uP = &pData[3];
+          uint8_t uSource = *uP++;
+          uint8_t uSourcePin = *uP++;
+          USB_DBG("  Pin[%u] source = (%u, %u)", uPin, uSource, uSourcePin);
+        }
+      }
+      break;
+    }
+  }  
+}
+```
+
+### DeviceConnected(uint8_t uDeviceIndex)
+A Device has been dconnected (only devices supported by this driver)
+
+### DeviceDisconnected(uint8_t uDeviceIndex)
+A device has been connected (only devices supported by this driver)
+
+### bool HandleTransfersAutomatically(void)
+Return false if you do not want transfers handled automatically.
+More on this later...
+

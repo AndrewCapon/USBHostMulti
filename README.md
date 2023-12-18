@@ -171,3 +171,56 @@ A device has been connected (only devices supported by this driver)
 Return false if you do not want transfers handled automatically.
 More on this later...
 
+## USBHostMulti
+This is the top level class, this is the `Arduino_USBHostMbed5` driver that is used by the underlying mbed code.
+
+There are only three methods you need to be interested in:
+
+### void AddDriver(IUSBHostMultiDriver *pDriver)
+Adds a `HostMultiDriver`
+Call this for any multi driver you want to use.
+
+### USBHostMultiDevice *GetDevice(uint8_t uDeviceIndex)
+Get a `USBHostMultiDevice` for a device index
+
+### USBHostMultiInterface *GetInterface(uint8_t uDeviceIndex, uint8_t uInterfaceNum)
+Get a `USBHostMultiInterface` for a device index and an interface num.
+
+## USBHostMultiDevice
+For every USB device attached with a driver we will have one of these.
+
+There are four methods for data transfer, if automatic transfers are enabled the only one you will probably be interested in is `SendUSBData`
+
+### bool SendUSBData(uint8_t uInterfaceNum, uint8_t *pData, uint16_t uLength, bool bBlocking = false)
+Sends data in `pData` of length `uLength` to interface `uInterfaceNum`. Blocking if requred.
+
+### bool GetUSBData(uint8_t uInterfaceNum, uint8_t *pData, uint16_t uLength, bool bBlocking = false)
+Gets data in `pData` of length `uLength` to interface `uInterfaceNum`. Blocking if requred.
+
+### bool SendControlData(uint8_t *pData, uint16_t uLength, uint8_t uRequestType, uint8_t uRequest, uint32_t uValue, uint32_t uIndex);
+Sends control Data.
+
+### bool GetControlData(uint8_t *pData, uint16_t uLength, uint8_t uRequestType, uint8_t uRequest, uint32_t uValue, uint32_t uIndex);
+Gets control data.
+
+There are also a couple of methods for getting at interfaces :
+### USBHostMultiInterface *GetInterface(uint8_t uInterfaceNum) const;
+Get by interface number
+
+### USBHostMultiInterface *GetInterface(USBHostMultiInterface::InterfaceType interfaceType) const;
+Get by interface type.
+
+## USBHostMultiInterface
+We are down in the gubbins now and you will probably not need to use this stuff.
+Each `USBHostMultiDevice` can have multiple `USBHostMultiInterface`s
+There are Send and Get methods in for the interface level.
+
+## USBHostMultiInterface
+More gubbins.
+Each `USBHostMultiInterface` can have multiple `USBHostMultiEndpoint`s
+There are Send and Get methods in for the endpoint level.
+
+
+
+
+

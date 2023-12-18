@@ -28,30 +28,34 @@ The following branch of `Arduino_USBHostMbed5` should be used : https://github.c
 define USE_SERIAL to be the serial device you are using
 
 ## For arduino users:
-This is a PlatformIO project, if you want to play with it in arduino you need the source code for the main lib here: https://github.com/AndrewCapon/USBHostMulti/tree/main/lib/USBHostMulti/src
-You also need `MidiTest.h` from https://github.com/AndrewCapon/USBHostMulti/tree/main/src if you are running the example code with midi devices.
-Main.cpp will also need changeing to your main ino file.
+This is a PlatformIO project, if you want to play with it in arduino you need the source code for the main lib here: https://github.com/AndrewCapon/USBHostMulti/tree/main/lib/USBHostMulti/src 
+
+You also need `MidiTest.h` from https://github.com/AndrewCapon/USBHostMulti/tree/main/src if you are running the example code with midi devices.  
+
+Main.cpp will also need changeing to your main ino file.  
 
 ## USBHostMultiDumperDriver
-By default the sample code uses the `USBHostMultiDumperDriver`, this is very simple, it logs out the info about the configuration when a device is connected.
-Also every interface of the device is attached and you should see any data being sent from the device on those interfaces being logged.
+By default the sample code uses the `USBHostMultiDumperDriver`, this is very simple, it logs out the info about the configuration when a device is connected.  
+
+Also every interface of the device is attached and you should see any data being sent from the device on those interfaces being logged.  
 
 ## Multiple drivers
-In main.cpp changing USE_DUMPER to 0 will enable a test showing multiple drivers being registered.
+In main.cpp changing USE_DUMPER to 0 will enable a test showing multiple drivers being registered.  
 
-The drivers are not full drivers, just examples for showing the automatic registering of devices.
+The drivers are not full drivers, just examples for showing the automatic registering of devices.  
 
-The test drivers are for Mass Media, HID Keybaords and MIDI devices.
+The test drivers are for Mass Media, HID Keybaords and MIDI devices.  
 
-When connecting devices you should see in the log the correct drivers being attached to the device, if you tap keys on the keyboard you should see data logged, if you send MIDI then you should see that logged.
+When connecting devices you should see in the log the correct drivers being attached to the device, if you tap keys on the keyboard you should see data logged, if you send MIDI then you should see that logged.  
 
 ## Midi output test
-Set `USE_MIDI_TEST` to 1 to enable this test
-CC0 messages will be sent to all connected midi devices.
+Set `USE_MIDI_TEST` to 1 to enable this test  
+
+CC0 messages will be sent to all connected midi devices.  
 
 
 ## Implementing drivers
-A driver needs to subclass from `IUSBHostMultiDriver`
+A driver needs to subclass from `IUSBHostMultiDriver`  
 
 The following are mandatory:
 ```
@@ -92,7 +96,7 @@ bool USBHostMultiHIDKeyboardDriver::IsEndpointSupported(ENDPOINT_TYPE endpointTy
 ```
 
 ### bool IsInterfaceSupported(uint8_t uClass, uint8_t uSubclass, uint8_t uProtocol)
-Return true if this sort of interface is supported:
+Return true if this sort of interface is supported:  
 
 For example, for a HID keyboard:
 ```
@@ -103,11 +107,11 @@ bool USBHostMultiHIDKeyboardDriver::IsInterfaceSupported(uint8_t uClass, uint8_t
 ```
 
 ### void RecievedUSBData(uint8_t uDeviceIndex, uint8_t uInterfaceNum, uint8_t *pData, uint16_t uLength)
-This is called whenever data is received.
-`uDeviceIndex` can be used to get the device.
-`uInterfaceNum` is the interface number that the data was received from (for multi iinterface devices)
-`pData` pointer to `uint8_t` data.
-`uLength` the length in bytes.
+This is called whenever data is received.  
+`uDeviceIndex` can be used to get the device.  
+`uInterfaceNum` is the interface number that the data was received from (for multi iinterface devices)  
+`pData` pointer to `uint8_t` data.  
+`uLength` the length in bytes.  
 
 For example:
 ```
@@ -124,13 +128,13 @@ void USBHostMultiDumperDriver::RecievedUSBData(uint8_t uDeviceIndex,  uint8_t uI
 ```
 
 ### void ParseConfigEntry(uint8_t uType, uint8_t *pData, uint32_t uLength, uint8_t *pRawData)
-This is called for every entry in the device configuration.
-`uType' the type of the config entry.
-`pData` the data for the config entry (type has been removed)
-`uLength` the lengh of the data in `pData`
-`pRawData` the raw data.
+This is called for every entry in the device configuration.  
+`uType` the type of the config entry.  
+`pData` the data for the config entry (type has been removed)  
+`uLength` the lengh of the data in `pData`  
+`pRawData` the raw data.  
 
-For example in the midi driver we can use this to find the ports and jacks:
+For example in the midi driver we can use this to find the ports and jacks:  
 ```
 void USBHostMultiMidiDriver::ParseConfigEntry(uint8_t uType, uint8_t *pData, uint32_t uLength, uint8_t *pRawData)
 {
@@ -188,12 +192,12 @@ Return false if you do not want transfers handled automatically.
 More on this later...
 
 ## USBHostMulti
-This is the top level class, this is the `Arduino_USBHostMbed5` driver that is used by the underlying mbed code.
+This is the top level class, this is the `Arduino_USBHostMbed5` driver that is used by the underlying mbed code.  
 
-There are only three methods you need to be interested in:
+There are only three methods you need to be interested in:  
 
 ### void AddDriver(IUSBHostMultiDriver *pDriver)
-Adds a `HostMultiDriver`
+Adds a `HostMultiDriver`  
 Call this for any multi driver you want to use.
 
 ### USBHostMultiDevice *GetDevice(uint8_t uDeviceIndex)
@@ -203,7 +207,7 @@ Get a `USBHostMultiDevice` for a device index
 Get a `USBHostMultiInterface` for a device index and an interface num.
 
 ## USBHostMultiDevice
-For every USB device attached with a driver we will have one of these.
+For every USB device attached with a driver we will have one of these.  
 
 There are four methods for data transfer, if automatic transfers are enabled the only one you will probably be interested in is `SendUSBData`
 
@@ -227,13 +231,13 @@ Get by interface number
 Get by interface type.
 
 ## USBHostMultiInterface
-We are down in the gubbins now and you will probably not need to use this stuff.
-Each `USBHostMultiDevice` can have multiple `USBHostMultiInterface`s
-There are Send and Get methods in for the interface level.
+We are down in the gubbins now and you will probably not need to use this stuff.  
+Each `USBHostMultiDevice` can have multiple `USBHostMultiInterface`s  
+There are Send and Get methods in for the interface level.  
 
 ## USBHostMultiInterface
 More gubbins.
-Each `USBHostMultiInterface` can have multiple `USBHostMultiEndpoint`s
+Each `USBHostMultiInterface` can have multiple `USBHostMultiEndpoint`s  
 There are Send and Get methods in for the endpoint level.
 
 

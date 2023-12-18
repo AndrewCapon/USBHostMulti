@@ -11,6 +11,8 @@ You need to enable debug output by setting DEBUG to at least 1 in `dbg.h` in `Ar
 
 The following branch of `Arduino_USBHostMbed5` should be used : https://github.com/AndrewCapon/Arduino_USBHostMbed5/tree/USBHostMulti
 
+define USE_SERIAL to be the serial device you are using
+
 ## For arduino users:
 This is a PlatformIO project, if you want to play with it in arduino you need the source code for the main lib here: https://github.com/AndrewCapon/USBHostMulti/tree/main/lib/USBHostMulti/src
 You also need `MidiTest.h` from https://github.com/AndrewCapon/USBHostMulti/tree/main/src if you are running the example code with midi devices.

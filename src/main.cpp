@@ -54,16 +54,16 @@ void setup()
 #if USE_DUMPER
   pMultiDumperDriver = new USBHostMultiDumperDriver(pMultiHost);
 #else
-  // Create Midi driver and attach to host (bulk)
-  pMultiMidiDriver = new USBHostMultiMidiDriver(pMultiHost);
+  // // Create Midi driver and attach to host (bulk)
+  // pMultiMidiDriver = new USBHostMultiMidiDriver(pMultiHost);
 
-  // Create test keyboard driver (interrupt)
-  pMultiHIDKeyboardDriver = new USBHostMultiHIDKeyboardDriver(pMultiHost);
+  // // Create test keyboard driver (interrupt)
+  // pMultiHIDKeyboardDriver = new USBHostMultiHIDKeyboardDriver(pMultiHost);
 
-  // Create Msd driver and attach to host (bulk)
-  pMultiMsdDriver = new USBHostMultiMsdDriver(pMultiHost);
+  // // Create Msd driver and attach to host (bulk)
+  // pMultiMsdDriver = new USBHostMultiMsdDriver(pMultiHost);
 
-  // Create Joystick driver and attach to host (bulk)
+  // Create Joystick driver and attach to host (interrupt)
   pMultiJoystickDriver = new USBHostMultiJoystickDriver(pMultiHost);
 
 #if USE_MIDI_TEST

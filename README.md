@@ -44,7 +44,7 @@ In main.cpp changing USE_DUMPER to 0 will enable a test showing multiple drivers
 
 The drivers are not full drivers, just examples for showing the automatic registering of devices.  
 
-The test drivers are for Mass Media, HID Keybaords and MIDI devices.  
+The test drivers are for Mass Media, HID Keybaords, joysticks and MIDI devices.  
 
 When connecting devices you should see in the log the correct drivers being attached to the device, if you tap keys on the keyboard you should see data logged, if you send MIDI then you should see that logged.  
 
@@ -211,6 +211,12 @@ For every USB device attached with a driver we will have one of these.
 
 There are four methods for data transfer, if automatic transfers are enabled the only one you will probably be interested in is `SendUSBData`  
 If you are writing say a mass media driver then you need to turn off automatic transfers by implementing `HandleTransfersAutomatically()` and returning false. Then manually use `GetUSBData()`
+
+### bool SendUSBData(uint8_t *pData, uint16_t uLength, bool bBlocking = false)
+Sends data in `pData` of length `uLength` to default interface. Blocking if requred.
+
+### bool GetUSBData(uint8_t *pData, uint16_t uLength, bool bBlocking = false)
+Gets data in `pData` of length `uLength` to default interface. Blocking if requred.
 
 ### bool SendUSBData(uint8_t uInterfaceNum, uint8_t *pData, uint16_t uLength, bool bBlocking = false)
 Sends data in `pData` of length `uLength` to interface `uInterfaceNum`. Blocking if requred.

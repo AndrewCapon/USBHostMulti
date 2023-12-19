@@ -14,7 +14,7 @@
 #define USE_SERIAL Serial2
 
 // Set to 1 for dumper example from rawdata in enumerator
-#define USE_DUMPER (1)
+#define USE_DUMPER (0)
 
 // SET to 1 to test midi output, sends varying CC0 to all connected midi devices
 #define USE_MIDI_TEST (0)
@@ -62,6 +62,9 @@ void setup()
 
   // Create Msd driver and attach to host (bulk)
   pMultiMsdDriver = new USBHostMultiMsdDriver(pMultiHost);
+
+  // Create Joystick driver and attach to host (bulk)
+  pMultiJoystickDriver = new USBHostMultiJoystickDriver(pMultiHost);
 
 #if USE_MIDI_TEST
   // Create simple test class for testing midi

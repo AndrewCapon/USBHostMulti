@@ -24,16 +24,14 @@ public:
   virtual ~USBHostMultiMidiDriver(void);
 
   // IUSBHostMultiDriver
-  void                                  ParseConfigEntry(uint8_t uType, uint8_t *pData, uint32_t uLength, uint8_t *pRawData) override;
+  void        ParseConfigEntry(uint8_t uDeviceIndex, uint8_t uType, uint8_t *pData, uint32_t uLength, uint8_t *pRawData) override;
+  void        DeviceConnected(uint8_t uDeviceIndex) override;
+  void        DeviceDisconnected(uint8_t uDeviceIndex) override;
+  std::string GetDriverName(void) override;
+  bool        IsEndpointSupported(ENDPOINT_TYPE endpointType) override;
+  bool        IsInterfaceSupported(uint8_t uDeviceIndex, uint8_t uClass, uint8_t uSubclass, uint8_t uProtocol) override;
+  void        RecievedUSBData(uint8_t uDeviceIndex, uint8_t uInterfaceNum, uint8_t *pData, uint16_t uLength) override;
 
-  void                                  DeviceConnected(uint8_t uDeviceIndex) override;
-  void                                  DeviceDisconnected(uint8_t uDeviceIndex) override;
-
-  std::string                           GetDriverName(void) override;
-  bool                                  IsEndpointSupported(ENDPOINT_TYPE endpointType) override;
-  bool                                  IsInterfaceSupported(uint8_t uClass, uint8_t uSubclass, uint8_t uProtocol) override;
-
-  void                                  RecievedUSBData(uint8_t uDeviceIndex, uint8_t uInterfaceNum, uint8_t *pData, uint16_t uLength) override;
 
   bool SendRawMidi(USBHostMultiDevice *pDevice, uint8_t uJackId, uint8_t uB1, uint8_t uB2, uint8_t uB3, uint8_t uB4);
   

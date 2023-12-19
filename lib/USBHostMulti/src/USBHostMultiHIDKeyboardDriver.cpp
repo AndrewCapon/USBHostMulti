@@ -33,7 +33,7 @@ bool USBHostMultiHIDKeyboardDriver::IsEndpointSupported(ENDPOINT_TYPE endpointTy
   return INTERRUPT_ENDPOINT == endpointType;
 }
 
-bool USBHostMultiHIDKeyboardDriver::IsInterfaceSupported(uint8_t uClass, uint8_t uSubclass, uint8_t uProtocol)
+bool USBHostMultiHIDKeyboardDriver::IsInterfaceSupported(uint8_t uDeviceIndex, uint8_t uClass, uint8_t uSubclass, uint8_t uProtocol)
 {
   return((uClass == HID_CLASS) && (uSubclass == 0x01) && (uProtocol == 0x01));
 }

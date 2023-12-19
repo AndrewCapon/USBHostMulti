@@ -94,11 +94,11 @@ bool USBHostMultiEndpoint::SendUSBData(uint8_t *pData, uint16_t uLength, bool bB
     switch(m_type)
     {
       case BULK_ENDPOINT:
-        bResult = (USB_TYPE_OK == m_pHost->bulkWrite(m_pUSBDevice, m_pUSBEndpoint, pData, uLength, bBlocking));
+        bResult = CheckUSBResult(m_pHost->bulkWrite(m_pUSBDevice, m_pUSBEndpoint, pData, uLength, bBlocking));
       break;
 
       case INTERRUPT_ENDPOINT:
-        bResult = (USB_TYPE_OK == m_pHost->interruptWrite(m_pUSBDevice, m_pUSBEndpoint, pData, uLength, bBlocking));
+        bResult = CheckUSBResult(m_pHost->interruptWrite(m_pUSBDevice, m_pUSBEndpoint, pData, uLength, bBlocking));
       break;
 
       default:
@@ -127,11 +127,11 @@ bool USBHostMultiEndpoint::GetUSBData(uint8_t *pData, uint16_t uLength, bool bBl
     switch(m_type)
     {
       case BULK_ENDPOINT:
-        bResult = (USB_TYPE_OK == m_pHost->bulkRead(m_pUSBDevice, m_pUSBEndpoint, pData, uLength, bBlocking));
+        bResult = CheckUSBResult(m_pHost->bulkRead(m_pUSBDevice, m_pUSBEndpoint, pData, uLength, bBlocking));
       break;
 
       case INTERRUPT_ENDPOINT:
-        bResult = (USB_TYPE_OK == m_pHost->interruptRead(m_pUSBDevice, m_pUSBEndpoint, pData, uLength, bBlocking));
+        bResult = CheckUSBResult(m_pHost->interruptRead(m_pUSBDevice, m_pUSBEndpoint, pData, uLength, bBlocking));
       break;
 
       default:

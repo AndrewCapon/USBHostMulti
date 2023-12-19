@@ -33,7 +33,7 @@ bool USBHostMultiMsdDriver::IsEndpointSupported(ENDPOINT_TYPE endpointType)
   return BULK_ENDPOINT == endpointType;
 }
 
-bool USBHostMultiMsdDriver::IsInterfaceSupported(uint8_t uClass, uint8_t uSubclass, uint8_t uProtocol)
+bool USBHostMultiMsdDriver::IsInterfaceSupported(uint8_t uDeviceIndex, uint8_t uClass, uint8_t uSubclass, uint8_t uProtocol)
 {
  return((uClass == MSD_CLASS) && (uSubclass == 0x06) && (uProtocol == 0x50));
 }

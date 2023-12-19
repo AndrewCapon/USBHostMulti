@@ -94,6 +94,9 @@ bool USBHostMultiDevice::AttachUSBDevice(USBDeviceConnected *pUSBDevice, uint8_t
       int16_t nConnectedInterface = pInterface->AttachDevice(m_pUSBDevice);
       if(nConnectedInterface != -1)
       {
+        if(m_uDefaultInterface == 0xffff)
+          m_uDefaultInterface = nConnectedInterface;
+
         m_pUSBDevice->setName(m_sProduct.c_str(), static_cast<uint8_t>(nConnectedInterface));
         if(uConnectedInterfaces == 0) // just one disconnect
           pUSBHost->registerDriver(m_pUSBDevice, static_cast<uint8_t>(nConnectedInterface), this, &USBHostMultiDevice::Disconnect);
@@ -127,6 +130,7 @@ void USBHostMultiDevice::Disconnect(void)
   m_pUSBDevice = nullptr;
   m_uVid = 0;
   m_uPid = 0;
+  m_uDefaultInterface = 0xffff;
 
   for(uint_fast8_t u = 0; u < MAX_INTF; u++)
   {
@@ -153,7 +157,7 @@ bool USBHostMultiDevice::SendUSBData(uint8_t uInterfaceNum, uint8_t *pData, uint
   bool bResult = false;
 
   if(m_interfaces[uInterfaceNum])
-    m_interfaces[uInterfaceNum]->SendUSBData(pData, uLength, bBlocking);
+    bResult = m_interfaces[uInterfaceNum]->SendUSBData(pData, uLength, bBlocking);
 
   return bResult;
 }
@@ -163,7 +167,7 @@ bool USBHostMultiDevice::GetUSBData(uint8_t uInterfaceNum, uint8_t *pData, uint1
   bool bResult = false;
 
   if(m_interfaces[uInterfaceNum])
-    m_interfaces[uInterfaceNum]->GetUSBData(pData, uLength, bBlocking);
+    bResult = m_interfaces[uInterfaceNum]->GetUSBData(pData, uLength, bBlocking);
 
   return bResult;
 }

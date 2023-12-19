@@ -7,6 +7,7 @@
 #include "USBHostMultiHIDKeyboardDriver.h"
 #include "USBHostMultiMsdDriver.h"
 #include "USBHostMultiDumperDriver.h"
+#include "USBHostMultiJoystickDriver.h"
 #include "MidiTest.h"
 
 // Set to whatever SERIAL device you want for logging.
@@ -32,6 +33,7 @@ USBHostMulti                  *pMultiHost = nullptr;
   USBHostMultiMidiDriver        *pMultiMidiDriver = nullptr;
   USBHostMultiHIDKeyboardDriver *pMultiHIDKeyboardDriver = nullptr;
   USBHostMultiMsdDriver         *pMultiMsdDriver = nullptr;
+  USBHostMultiJoystickDriver    *pMultiJoystickDriver = nullptr;
   #if USE_MIDI_TEST
     MidiTest                      *pMidiTest = nullptr;
   #endif

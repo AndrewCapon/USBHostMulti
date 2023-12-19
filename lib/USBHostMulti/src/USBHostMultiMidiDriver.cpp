@@ -13,7 +13,7 @@ USBHostMultiMidiDriver::~USBHostMultiMidiDriver(void)
 
 }
 
-void USBHostMultiMidiDriver::ParseConfigEntry(uint8_t uType, uint8_t *pData, uint32_t uLength, uint8_t *pRawData)
+void USBHostMultiMidiDriver::ParseConfigEntry(uint8_t uDeviceIndex, uint8_t uType, uint8_t *pData, uint32_t uLength, uint8_t *pRawData)
 {
   if(uType == 0x24) // class-specific interface descriptor
   {
@@ -121,7 +121,7 @@ bool USBHostMultiMidiDriver::IsEndpointSupported(ENDPOINT_TYPE endpointType)
   return BULK_ENDPOINT == endpointType;
 }
 
-bool USBHostMultiMidiDriver::IsInterfaceSupported(uint8_t uClass, uint8_t uSubclass, uint8_t uProtocol)
+bool USBHostMultiMidiDriver::IsInterfaceSupported(uint8_t uDeviceIndex, uint8_t uClass, uint8_t uSubclass, uint8_t uProtocol)
 {
   return (((uClass == AUDIO_CLASS) && (uSubclass == 0x03)) || ((uClass == 0xff) && (uSubclass == 0x03)));
 }

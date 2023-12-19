@@ -59,7 +59,7 @@ void USBHostMulti::setVidPid(uint16_t vid, uint16_t pid)
 
 bool USBHostMulti::parseInterface(uint8_t intf_nb, uint8_t intf_class, uint8_t intf_subclass, uint8_t intf_protocol)
 {
-  bool bResult = m_pDriverBeingEnumerated->IsInterfaceSupported(intf_class, intf_subclass, intf_protocol);
+  bool bResult = m_pDriverBeingEnumerated->IsInterfaceSupported(m_uCurrentDeviceIndex, intf_class, intf_subclass, intf_protocol);
   if(bResult)
   {
     USBHostMultiInterface::InterfaceType interfaceType = USBHostMultiInterface::MakeInterfaceType(intf_class, intf_subclass, intf_protocol);
@@ -71,7 +71,7 @@ bool USBHostMulti::parseInterface(uint8_t intf_nb, uint8_t intf_class, uint8_t i
 
 void USBHostMulti::parseConfigEntry(uint8_t type, uint8_t *data, uint32_t len, uint8_t *rawdata)
 {
-  m_pDriverBeingEnumerated->ParseConfigEntry(type, data, len, rawdata);
+  m_pDriverBeingEnumerated->ParseConfigEntry(m_uCurrentDeviceIndex, type, data, len, rawdata);
 }
 
 bool USBHostMulti::useEndpoint(uint8_t intf_nb, ENDPOINT_TYPE type, ENDPOINT_DIRECTION dir)

@@ -43,6 +43,17 @@ public:
 
   bool SendUSBData(uint8_t uInterfaceNum, uint8_t *pData, uint16_t uLength, bool bBlocking = false);
   bool GetUSBData(uint8_t uInterfaceNum, uint8_t *pData, uint16_t uLength, bool bBlocking = false);
+  
+  bool SendUSBData(uint8_t *pData, uint16_t uLength, bool bBlocking = false)
+  {
+    return SendUSBData(m_uDefaultInterface, pData, uLength, bBlocking);
+  }
+
+  bool GetUSBData(uint8_t *pData, uint16_t uLength, bool bBlocking = false)
+  {
+    return GetUSBData(m_uDefaultInterface, pData, uLength, bBlocking);
+  }
+  
   bool SendControlData(uint8_t *pData, uint16_t uLength, uint8_t uRequestType, uint8_t uRequest, uint32_t uValue, uint32_t uIndex);
   bool GetControlData(uint8_t *pData, uint16_t uLength, uint8_t uRequestType, uint8_t uRequest, uint32_t uValue, uint32_t uIndex);
   
@@ -76,6 +87,11 @@ public:
     return m_uPid;
   }
 
+  uint16_t GetDefaultInterface(void)
+  {
+    return m_uDefaultInterface;
+  }
+  
 private:
   std::string         GetStringDescription(uint8_t uIndex);
 
@@ -86,8 +102,7 @@ private:
   uint16_t m_uVid;
   uint16_t m_uPid;
 
-  int16_t m_nConnectedInterface = -1;
-
+  uint16_t m_uDefaultInterface = 0xffff;
   std::string m_sManufacturer;
   std::string m_sProduct;
   std::string m_sSerial;

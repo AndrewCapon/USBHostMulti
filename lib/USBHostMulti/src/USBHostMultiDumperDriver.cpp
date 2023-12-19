@@ -36,7 +36,7 @@ bool USBHostMultiDumperDriver::IsEndpointSupported(ENDPOINT_TYPE endpointType)
   return (INTERRUPT_ENDPOINT == endpointType) || (BULK_ENDPOINT == endpointType);
 }
 
-bool USBHostMultiDumperDriver::IsInterfaceSupported(uint8_t uClass, uint8_t uSubclass, uint8_t uProtocol)
+bool USBHostMultiDumperDriver::IsInterfaceSupported(uint8_t uDeviceIndex, uint8_t uClass, uint8_t uSubclass, uint8_t uProtocol)
 {
   // we support all interfaces
   return true;
@@ -55,7 +55,7 @@ void USBHostMultiDumperDriver::DeviceDisconnected(uint8_t uDeviceIndex)
   printf("USB Device disconnected : %s %s\r\n", pDevice->GetManufacturer().c_str(), pDevice->GetProduct().c_str());
 }
  
-void USBHostMultiDumperDriver::ParseConfigEntry(uint8_t uType, uint8_t *pData, uint32_t uLength, uint8_t *pRawData)
+void USBHostMultiDumperDriver::ParseConfigEntry(uint8_t uDeviceIndex, uint8_t uType, uint8_t *pData, uint32_t uLength, uint8_t *pRawData)
 {
   switch (uType) 
   {

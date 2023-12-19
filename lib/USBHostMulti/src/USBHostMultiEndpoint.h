@@ -38,5 +38,9 @@ private:
   USBHost             *m_pHost = nullptr;
   bool                m_bHandleTransfersAutomatically;
 
+  inline bool CheckUSBResult(USB_TYPE result)
+  {
+    return (result == USB_TYPE_OK) || (result = USB_TYPE_PROCESSING);
+  }
 
 };

@@ -212,6 +212,12 @@ For every USB device attached with a driver we will have one of these.
 There are four methods for data transfer, if automatic transfers are enabled the only one you will probably be interested in is `SendUSBData`  
 If you are writing say a mass media driver then you need to turn off automatic transfers by implementing `HandleTransfersAutomatically()` and returning false. Then manually use `GetUSBData()`
 
+### bool SendUSBData(uint8_t *pData, uint16_t uLength, bool bBlocking = false)
+Sends data in `pData` of length `uLength` to default interface. Blocking if requred.
+
+### bool GetUSBData(uint8_t *pData, uint16_t uLength, bool bBlocking = false)
+Gets data in `pData` of length `uLength` to default interface. Blocking if requred.
+
 ### bool SendUSBData(uint8_t uInterfaceNum, uint8_t *pData, uint16_t uLength, bool bBlocking = false)
 Sends data in `pData` of length `uLength` to interface `uInterfaceNum`. Blocking if requred.
 

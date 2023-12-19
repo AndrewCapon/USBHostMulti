@@ -44,7 +44,7 @@ In main.cpp changing USE_DUMPER to 0 will enable a test showing multiple drivers
 
 The drivers are not full drivers, just examples for showing the automatic registering of devices.  
 
-The test drivers are for Mass Media, HID Keybaords and MIDI devices.  
+The test drivers are for Mass Media, HID Keybaords, joysticks and MIDI devices.  
 
 When connecting devices you should see in the log the correct drivers being attached to the device, if you tap keys on the keyboard you should see data logged, if you send MIDI then you should see that logged.  
 

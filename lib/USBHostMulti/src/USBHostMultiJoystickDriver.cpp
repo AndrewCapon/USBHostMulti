@@ -79,21 +79,21 @@ void USBHostMultiJoystickDriver::DeviceConnected(uint8_t uDeviceIndex)
     case jtXbox360W:
     {
       uint8_t command[] = {0x08, 0x00, 0x0F, 0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
-      bInitialised = pDevice->SendUSBData(command, sizeof(command));
+      bInitialised = pDevice->SendUSBData(command, sizeof(command), true);
     }
     break;
 
     case jtXboxOne:
     {
       uint8_t command[] = {0x05, 0x20, 0x00, 0x01, 0x00};
-      bInitialised = pDevice->SendUSBData(command, sizeof(command));
+      bInitialised = pDevice->SendUSBData(command, sizeof(command), true);
     }
     break;
 
     case jtSwitch:
     {
       uint8_t command[] = {0x80, 0x02};
-      bInitialised = pDevice->SendUSBData(command, sizeof(command));
+      bInitialised = pDevice->SendUSBData(command, sizeof(command), true);
     }
     break;
 
@@ -102,9 +102,15 @@ void USBHostMultiJoystickDriver::DeviceConnected(uint8_t uDeviceIndex)
   }
 
   if(bInitialised)
+  {
+    printf("Joystick inititalised\r\n");
     m_joystickDevices[uDeviceIndex].m_state = jsConnected;
+  }
   else
+  {
+    printf("ERROR: Joystick failed to inititalise\r\n");
     m_joystickDevices[uDeviceIndex].m_state = jsErrorInititalising;
+  }
 }
 
 void USBHostMultiJoystickDriver::DeviceDisconnected(uint8_t uDeviceIndex)

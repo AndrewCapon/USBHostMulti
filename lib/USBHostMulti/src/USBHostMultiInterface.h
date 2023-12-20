@@ -42,6 +42,8 @@ public:
     return m_interfaceType;
   }
 
+  void DebugDump(void);
+  
 private:
 
   uint8_t               m_uInterfaceNum;

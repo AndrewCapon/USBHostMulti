@@ -181,3 +181,24 @@ bool USBHostMultiDevice::GetControlData(uint8_t *pData, uint16_t uLength, uint8_
 {
   return USB_TYPE_OK == USBHost::getHostInst()->controlRead(m_pUSBDevice, uRequestType, uRequest, uValue, uIndex, pData, uLength);
 }
+
+
+void USBHostMultiDevice::DebugDump(void)
+{
+  printf("\r\n**********************************************\r\n");
+  printf("* Device [%u]\r\n", m_uDeviceId);
+  printf("*   Default Interface        = %u\r\n", m_uDefaultInterface);
+  printf("*   VID                      = %4.4x\r\n", m_uVid);
+  printf("*   PID                      = %4.4x\r\n", m_uPid);
+  printf("*   Manufacturer             = %s\r\n", m_sManufacturer.c_str());
+  printf("*   Product                  = %s\r\n", m_sProduct.c_str());
+  for(uint8_t i= 0; i < MAX_INTF; i++)
+  {
+    if(USBHostMultiInterface *pInterface = m_interfaces[i])
+    {
+      pInterface->DebugDump();
+    }
+  }
+  printf("**********************************************\r\n\r\n");
+
+}

@@ -24,6 +24,11 @@ public:
   bool SendUSBData(uint8_t *pData, uint16_t uLength, bool bBlocking);
   bool GetUSBData(uint8_t *pData, uint16_t uLength, bool bBlocking);
 
+  bool GetHandleAutomatically(void)
+  {
+    return m_bHandleTransfersAutomatically;
+  }
+  
 private:
   USBHostMultiDevice    *m_pDevice = nullptr;
   USBHostMultiInterface *m_pInterface = nullptr;

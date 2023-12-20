@@ -76,3 +76,25 @@ bool USBHostMultiInterface::GetUSBData(uint8_t *pData, uint16_t uLength, bool bB
 
   return bResult;
 }
+
+void USBHostMultiInterface::DebugDump(void)
+{
+  static char * sEndpointTypes[] = {"Control", "Iso", "Bulk", "Interrupt"};
+  printf("* Interface [%u]\r\n", m_uInterfaceNum);
+  printf("*   Class                    = %u\r\n", m_interfaceType >> 16);
+  printf("*   Subclass                 = %u\r\n", (m_interfaceType >> 8) && 0xff);
+  printf("*   Protocol                 = %u\r\n", m_interfaceType && 0xff);
+  printf("*   Is connected             = %s\r\n", m_bEndpointsConnected ? "Yes" : "No");
+  for(uint_fast8_t uType = 0; uType < 4; uType ++)
+  for(uint_fast8_t uDirection = 0; uDirection < 2; uDirection++)
+  {
+    if ( USBHostMultiEndpoint *pEndpoint = m_endpoints[uType][uDirection])
+    {
+      const char *pszUsed = ((uDirection == 1 && m_pInEndpoint == pEndpoint) || (uDirection == 0 && m_pOutEndpoint == pEndpoint)) ? "Yes" : "No";
+
+      printf("*   Endpoint[%s][%s]\r\n", sEndpointTypes[uType], uDirection ? "In" : "Out");
+      printf("*      Automatic Transfers   = %s\r\n", pEndpoint->GetHandleAutomatically() ? "Yes" : "No");
+      printf("*      Using Endpoint        = %s\r\n", pszUsed);
+    }
+  }
+}

@@ -64,6 +64,7 @@ public:
       if(bResult)
       {
         m_connectedDrivers[uDeviceIndex] = m_pDriverBeingEnumerated;
+        m_devices[uDeviceIndex].DebugDump();
         m_connectedDrivers[uDeviceIndex]->DeviceConnected(uDeviceIndex);
       }
     }

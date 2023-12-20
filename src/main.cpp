@@ -16,6 +16,9 @@
 // Set to 1 for dumper example from rawdata in enumerator
 #define USE_DUMPER (0)
 
+// Set to 1 to only enable joystick
+#define ONLY_JOYSTICK (1)
+
 // SET to 1 to test midi output, sends varying CC0 to all connected midi devices
 #define USE_MIDI_TEST (0)
 
@@ -54,14 +57,16 @@ void setup()
 #if USE_DUMPER
   pMultiDumperDriver = new USBHostMultiDumperDriver(pMultiHost);
 #else
-  // // Create Midi driver and attach to host (bulk)
-  // pMultiMidiDriver = new USBHostMultiMidiDriver(pMultiHost);
+#if !ONLY_JOYSTICK
+  // Create Midi driver and attach to host (bulk)
+  pMultiMidiDriver = new USBHostMultiMidiDriver(pMultiHost);
 
-  // // Create test keyboard driver (interrupt)
-  // pMultiHIDKeyboardDriver = new USBHostMultiHIDKeyboardDriver(pMultiHost);
+  // Create test keyboard driver (interrupt)
+  pMultiHIDKeyboardDriver = new USBHostMultiHIDKeyboardDriver(pMultiHost);
 
-  // // Create Msd driver and attach to host (bulk)
-  // pMultiMsdDriver = new USBHostMultiMsdDriver(pMultiHost);
+  // Create Msd driver and attach to host (bulk)
+  pMultiMsdDriver = new USBHostMultiMsdDriver(pMultiHost);
+#endif
 
   // Create Joystick driver and attach to host (interrupt)
   pMultiJoystickDriver = new USBHostMultiJoystickDriver(pMultiHost);

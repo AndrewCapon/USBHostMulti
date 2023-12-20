@@ -92,6 +92,8 @@ public:
     return m_uDefaultInterface;
   }
   
+  void DebugDump(void);
+  
 private:
   std::string         GetStringDescription(uint8_t uIndex);
 

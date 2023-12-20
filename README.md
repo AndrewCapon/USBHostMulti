@@ -34,13 +34,18 @@ You also need `MidiTest.h` from https://github.com/AndrewCapon/USBHostMulti/tree
 
 Main.cpp will also need changeing to your main ino file.  
 
+## Default Test
+The current default test is to just test the Joystick driver. ONLY_JOYSTICK=1
+
 ## USBHostMultiDumperDriver
-By default the sample code uses the `USBHostMultiDumperDriver`, this is very simple, it logs out the info about the configuration when a device is connected.  
+To use the `USBHostMultiDumperDriver' set USE_DUMPER=1  
+
+This is very simple, it logs out the info about the configuration when a device is connected.  
 
 Also every interface of the device is attached and you should see any data being sent from the device on those interfaces being logged.  
 
 ## Multiple drivers
-In main.cpp changing USE_DUMPER to 0 will enable a test showing multiple drivers being registered.  
+In main.cpp changing USE_DUMPER to 0 ONLY_JOYSTICK to 0 and will enable a test showing multiple drivers being registered.  
 
 The drivers are not full drivers, just examples for showing the automatic registering of devices.  
 

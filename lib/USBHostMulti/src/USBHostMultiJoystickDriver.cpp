@@ -98,6 +98,7 @@ void USBHostMultiJoystickDriver::DeviceConnected(uint8_t uDeviceIndex)
     break;
 
     default:
+      bInitialised = true;
     break;
   }
 

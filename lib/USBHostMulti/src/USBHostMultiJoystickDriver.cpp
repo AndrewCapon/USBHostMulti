@@ -68,7 +68,7 @@ bool USBHostMultiJoystickDriver::IsInterfaceSupported(uint8_t uDeviceIndex, uint
 void USBHostMultiJoystickDriver::DeviceConnected(uint8_t uDeviceIndex)
 {
   USBHostMultiDevice *pDevice = m_pHostMulti->GetDevice(uDeviceIndex);
-  printf("USB Joystick connected : %s %s\r\n", pDevice->GetManufacturer().c_str(), pDevice->GetProduct().c_str());
+  printf("*** USB Joystick connected : %s %s\r\n", pDevice->GetManufacturer().c_str(), pDevice->GetProduct().c_str());
   m_joystickDevices[uDeviceIndex].m_state = jsConnected;
 
   bool bInitialised = false;
@@ -103,14 +103,16 @@ void USBHostMultiJoystickDriver::DeviceConnected(uint8_t uDeviceIndex)
 
   if(bInitialised)
   {
-    printf("Joystick inititalised\r\n");
+    printf("*** Joystick inititalised\r\n");
     m_joystickDevices[uDeviceIndex].m_state = jsConnected;
   }
   else
   {
-    printf("ERROR: Joystick failed to inititalise\r\n");
+    printf("*** ERROR: Joystick failed to inititalise\r\n");
     m_joystickDevices[uDeviceIndex].m_state = jsErrorInititalising;
   }
+
+  printf("\r\n");
 }
 
 void USBHostMultiJoystickDriver::DeviceDisconnected(uint8_t uDeviceIndex)

@@ -22,10 +22,10 @@ For sending and receiveing the idea was that I did not need to worry about endpo
 Also I wanted receiving of data to be automatic, so Bulk and Interupt endpoints are automatically set receiving again after data is retrieved.  
 
 TODO:   
-Implement ISO endpoints.  
-Interrupt receives should be done on SOF with correct interval.  
-Implement proper MIDI driver.  
-Get other people to implement other devices from existing code.  
+1. Implement ISO endpoints.  
+2. Interrupt receives should be done on SOF with correct interval.  
+3. Implement proper MIDI driver.  
+4. Get other people to implement other devices from existing code.  
 
 ## For PlatformIO and Arduino users
 You need to enable debug output by setting DEBUG to at least 1 in `dbg.h` in `Arduino_USBHostMbed5`.

@@ -103,12 +103,12 @@ void USBHostMultiJoystickDriver::DeviceConnected(uint8_t uDeviceIndex)
 
   if(bInitialised)
   {
-    printf("*** Joystick inititalised\r\n");
+    printf("*** Joystick initialised\r\n");
     m_joystickDevices[uDeviceIndex].m_state = jsConnected;
   }
   else
   {
-    printf("*** ERROR: Joystick failed to inititalise\r\n");
+    printf("*** ERROR: Joystick failed to initialise\r\n");
     m_joystickDevices[uDeviceIndex].m_state = jsErrorInititalising;
   }
 

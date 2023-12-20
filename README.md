@@ -3,22 +3,29 @@
 ## WIP example code to easily implement USB drivers that are automatically attached when midi devices are attached.
 
 Supports multiple connected USB devices.  
+  
 Supports USB devices with multiple interfaces.  
+  
 Currently Control, Bulk and Interupt endpoints are supported. (ISO to be added)  
 
-This all started as I wanted to use multiple MIDI devices connected to a HUB and I wanted everything to be automatic.
-
+  
+This all started as I wanted to use multiple MIDI devices connected to a HUB and I wanted everything to be automatic.  
+  
 The idea is that you write drivers that confrom to a simple interface.  
+  
 You then register these drivers with the system.  
+  
 Then everything is automatic, when a device is attached the system runs through the registered drivers checking to see if a driver matches, if it does it attaches that driver to the device.  
+  
 For sending and receiveing the idea was that I did not need to worry about endpoint types, this would be automatic.  
+  
 Also I wanted receiving of data to be automatic, so Bulk and Interupt endpoints are automatically set receiving again after data is retrieved.  
 
 TODO:   
-Implement ISO endpoints.  
-Interrupt receives should be done on SOF with correct interval.  
-Implement proper MIDI driver.  
-Get other people to implement other devices from existing code.  
+1. Implement ISO endpoints.  
+2. Interrupt receives should be done on SOF with correct interval.  
+3. Implement proper MIDI driver.  
+4. Get other people to implement other devices from existing code.  
 
 ## For PlatformIO and Arduino users
 You need to enable debug output by setting DEBUG to at least 1 in `dbg.h` in `Arduino_USBHostMbed5`.
@@ -34,13 +41,18 @@ You also need `MidiTest.h` from https://github.com/AndrewCapon/USBHostMulti/tree
 
 Main.cpp will also need changeing to your main ino file.  
 
+## Default Test
+The current default test is to just test the Joystick driver. ONLY_JOYSTICK=1
+
 ## USBHostMultiDumperDriver
-By default the sample code uses the `USBHostMultiDumperDriver`, this is very simple, it logs out the info about the configuration when a device is connected.  
+To use the `USBHostMultiDumperDriver' set `USE_DUMPER=1`  
+
+This is very simple, it logs out the info about the configuration when a device is connected.  
 
 Also every interface of the device is attached and you should see any data being sent from the device on those interfaces being logged.  
 
 ## Multiple drivers
-In main.cpp changing USE_DUMPER to 0 will enable a test showing multiple drivers being registered.  
+In main.cpp changing `USE_DUMPER` to 0 and `ONLY_JOYSTICK` to 0 and will enable a test showing multiple drivers being registered.  
 
 The drivers are not full drivers, just examples for showing the automatic registering of devices.  
 
@@ -49,7 +61,7 @@ The test drivers are for Mass Media, HID Keybaords, joysticks and MIDI devices.
 When connecting devices you should see in the log the correct drivers being attached to the device, if you tap keys on the keyboard you should see data logged, if you send MIDI then you should see that logged.  
 
 ## Midi output test
-Set `USE_MIDI_TEST` to 1 to enable this test  
+Set `USE_DUMPER` to 0, `ONLY_JOYSTICK` to 0, and `USE_MIDI_TEST` to 1 to enable this test  
 
 CC0 messages will be sent to all connected midi devices.  
 

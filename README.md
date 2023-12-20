@@ -38,14 +38,14 @@ Main.cpp will also need changeing to your main ino file.
 The current default test is to just test the Joystick driver. ONLY_JOYSTICK=1
 
 ## USBHostMultiDumperDriver
-To use the `USBHostMultiDumperDriver' set USE_DUMPER=1  
+To use the `USBHostMultiDumperDriver' set `USE_DUMPER=1`  
 
 This is very simple, it logs out the info about the configuration when a device is connected.  
 
 Also every interface of the device is attached and you should see any data being sent from the device on those interfaces being logged.  
 
 ## Multiple drivers
-In main.cpp changing USE_DUMPER to 0 ONLY_JOYSTICK to 0 and will enable a test showing multiple drivers being registered.  
+In main.cpp changing `USE_DUMPER` to 0 and `ONLY_JOYSTICK` to 0 and will enable a test showing multiple drivers being registered.  
 
 The drivers are not full drivers, just examples for showing the automatic registering of devices.  
 
@@ -54,7 +54,7 @@ The test drivers are for Mass Media, HID Keybaords, joysticks and MIDI devices.
 When connecting devices you should see in the log the correct drivers being attached to the device, if you tap keys on the keyboard you should see data logged, if you send MIDI then you should see that logged.  
 
 ## Midi output test
-Set `USE_MIDI_TEST` to 1 to enable this test  
+Set `USE_DUMPER` to 0, `ONLY_JOYSTICK` to 0, and `USE_MIDI_TEST` to 1 to enable this test  
 
 CC0 messages will be sent to all connected midi devices.  
 
